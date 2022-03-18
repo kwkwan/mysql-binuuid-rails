@@ -1,9 +1,9 @@
 module MySQLBinUUID
   class InvalidUUID < StandardError; end
 
-  class Type < ActiveModel::Type::Binary
+  class Type < ActiveRecord::Type::Binary
     def type
-      :uuid
+      :binary
     end
 
     # Invoked when a value that is returned from the database needs to be
@@ -80,7 +80,7 @@ module MySQLBinUUID
     #     => "2b4a233152694c6e9d1e098804ab812b"
     #
     def strip_dashes(uuid)
-      uuid.delete("-")
+      uuid.to_s.delete("-")
     end
 
     # Verify that the undashed version of a UUID only contains characters that
